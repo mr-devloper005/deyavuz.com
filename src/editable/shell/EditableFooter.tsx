@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { Heart, MapPin, Mail, Phone } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
 import { globalContent } from '@/editable/content/global.content'
 import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
@@ -12,46 +12,71 @@ export function EditableFooter() {
   const { session, logout } = useEditableLocalAuthSession()
 
   return (
-    <footer className="border-t border-[var(--editable-border)] bg-[var(--editable-footer-bg)] text-[var(--editable-footer-text)]">
-      <div className="h-[2px] bg-[linear-gradient(90deg,transparent_0%,var(--slot4-accent)_50%,transparent_100%)]" />
-      <div className="mx-auto grid max-w-[var(--editable-container)] gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_1fr_1fr] lg:px-8">
-        <div>
-          <Link href="/" className="inline-flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center border border-[var(--slot4-accent)]/40 bg-[var(--slot4-surface-bg)]">
-              <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-8 w-8 object-contain" />
-            </span>
-            <span className="editable-display text-xl font-semibold tracking-[0.01em]">{SITE_CONFIG.name}</span>
-          </Link>
-          <p className="mt-4 max-w-md text-sm leading-7 text-[var(--slot4-muted-text)]">{globalContent.footer?.description || SITE_CONFIG.description}</p>
-        </div>
-
-        <div>
-          <h3 className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[var(--slot4-accent)]">Explore</h3>
-          <div className="mt-4 grid gap-2">
-            {taskLinks.map((task) => (
-              <Link key={task.key} href={task.route} className="inline-flex items-center gap-2 text-sm font-medium text-[var(--slot4-muted-text)] transition hover:text-[var(--slot4-page-text)]">
-                {task.label} <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            ))}
+    <footer>
+      <div className="gradient-teal-pink px-4 py-16 text-white sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-[var(--editable-container)] gap-10 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+          <div>
+            <Link href="/" className="inline-flex items-center gap-3">
+              <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white/20 backdrop-blur-sm">
+                <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-full w-full scale-125 object-cover" />
+              </span>
+              <span className="editable-display text-2xl font-bold">{SITE_CONFIG.name}</span>
+            </Link>
+            <p className="mt-4 max-w-sm text-sm leading-7 text-white/80">
+              {globalContent.footer?.description || SITE_CONFIG.description}
+            </p>
           </div>
-        </div>
 
-        <div>
-          <h3 className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[var(--slot4-accent)]">Site</h3>
-          <div className="mt-4 grid gap-2">
-            {[
-              ['About', '/about'],
-              ['Contact', '/contact'],
-              ...(session ? [['Create', '/create']] : [['Login', '/login'], ['Sign up', '/signup']]),
-            ].map(([label, href]) => (
-              <Link key={href} href={href} className="text-sm font-medium text-[var(--slot4-muted-text)] transition hover:text-[var(--slot4-page-text)]">{label}</Link>
-            ))}
-            {session ? <button type="button" onClick={logout} className="text-left text-sm font-medium text-[var(--slot4-muted-text)] transition hover:text-[var(--slot4-page-text)]">Logout</button> : null}
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">Discover</h3>
+            <div className="mt-4 grid gap-2">
+              {taskLinks.map((task) => (
+                <Link key={task.key} href={task.route} className="text-sm font-medium text-white/80 transition hover:text-white">
+                  {task.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">Company</h3>
+            <div className="mt-4 grid gap-2">
+              {[
+                ['About', '/about'],
+                ['Contact', '/contact'],
+                ...(session ? [['Create', '/create']] : [['Login', '/login'], ['Sign up', '/signup']]),
+              ].map(([label, href]) => (
+                <Link key={href} href={href} className="text-sm font-medium text-white/80 transition hover:text-white">{label}</Link>
+              ))}
+              {session ? (
+                <button type="button" onClick={logout} className="text-left text-sm font-medium text-white/80 transition hover:text-white">
+                  Logout
+                </button>
+              ) : null}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">Connect</h3>
+            <div className="mt-4 grid gap-3">
+              <span className="flex items-center gap-2 text-sm text-white/80">
+                <MapPin className="h-4 w-4 text-white/60" /> Worldwide
+              </span>
+              <span className="flex items-center gap-2 text-sm text-white/80">
+                <Mail className="h-4 w-4 text-white/60" /> hello@{SITE_CONFIG.domain}
+              </span>
+              <span className="flex items-center gap-2 text-sm text-white/80">
+                <Phone className="h-4 w-4 text-white/60" /> Contact us
+              </span>
+            </div>
           </div>
         </div>
       </div>
-      <div className="border-t border-[var(--editable-border)] px-4 py-5 text-center text-xs font-medium tracking-[0.12em] text-[var(--slot4-muted-text)]">
-        © {year} {SITE_CONFIG.name}. All rights reserved.
+
+      <div className="bg-[#1a2a3a] px-4 py-4 text-center">
+        <p className="flex items-center justify-center gap-1.5 text-xs font-medium text-white/50">
+          © {year} {SITE_CONFIG.name}. Made with <Heart className="h-3 w-3 fill-[#e8788a] text-[#e8788a]" /> All rights reserved.
+        </p>
       </div>
     </footer>
   )
