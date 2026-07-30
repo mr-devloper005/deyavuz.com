@@ -8,6 +8,7 @@ export type Slot4VisualPreset =
   | 'tech-directory'
   | 'retro-bulletin'
   | 'visual-gallery'
+  | 'pastel-dreamy'
 
 export const visualPresets = {
   'editorial-paper': {
@@ -108,35 +109,49 @@ export const visualPresets = {
     },
     shape: 'dark cards, large media, glass overlays',
   },
+  'pastel-dreamy': {
+    label: 'Pastel Dreamy',
+    mood: 'warm, whimsical, inviting',
+    fontDirection: 'Playfair Display headlines with Nunito Sans body',
+    colors: {
+      background: '#f0f7fb',
+      foreground: '#1a2a3a',
+      muted: '#5a7a8a',
+      primary: '#e8788a',
+      accent: '#2bbdc5',
+      surface: '#ffffff',
+    },
+    shape: 'rounded-2xl cards, sky gradients, cloud overlays, pink-tinted shadows',
+  },
 } as const
 
 export const visualSystem = {
   productKind: slot4BrandConfig.productKind,
-  recommendedPreset: 'tech-directory',
+  recommendedPreset: 'pastel-dreamy',
   radius: {
     sm: '0.75rem',
-    md: '1.25rem',
-    lg: '2rem',
-    xl: '2.75rem',
+    md: '1rem',
+    lg: '1.5rem',
+    xl: '2rem',
   },
   motion: {
     pageLoad: 'animate-in fade-in slide-in-from-bottom-4 duration-700',
-    cardHover: 'transition duration-500 hover:-translate-y-1.5 hover:shadow-2xl',
+    cardHover: 'transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(232,120,138,0.15)]',
     softHover: 'transition duration-300 hover:opacity-85',
     reduceMotionSafe: 'motion-reduce:transform-none motion-reduce:transition-none',
   },
   typography: {
-    eyebrow: 'text-xs font-semibold uppercase tracking-[0.24em]',
-    heroTitle: 'text-5xl font-semibold tracking-[-0.06em] sm:text-6xl lg:text-7xl',
-    sectionTitle: 'text-3xl font-semibold tracking-[-0.04em] sm:text-4xl',
+    eyebrow: 'text-xs font-bold uppercase tracking-[0.24em]',
+    heroTitle: 'editable-display text-5xl font-bold sm:text-6xl lg:text-7xl',
+    sectionTitle: 'editable-display text-3xl font-bold sm:text-4xl',
     body: 'text-base leading-8',
-    caption: 'text-xs font-medium uppercase tracking-[0.18em]',
+    caption: 'text-xs font-bold uppercase tracking-[0.18em]',
   },
   surfaces: {
     glass: 'border border-white/15 bg-white/10 backdrop-blur-xl',
-    paper: 'border border-black/10 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.08)]',
-    quiet: 'border border-black/10 bg-black/[0.03]',
-    dark: 'border border-white/10 bg-black/30 shadow-[0_24px_70px_rgba(0,0,0,0.25)]',
+    paper: 'border border-[var(--editable-border)] bg-white shadow-[0_4px_20px_rgba(232,120,138,0.06)]',
+    quiet: 'border border-[var(--editable-border)] bg-[#f0f7fb]',
+    dark: 'border border-[var(--editable-border)] bg-[#1a2a3a] shadow-[0_24px_70px_rgba(26,42,58,0.25)]',
   },
   layout: {
     page: 'mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8',
